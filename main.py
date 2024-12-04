@@ -32,18 +32,15 @@ NEO4J_URI = creds.get("NEO4J_URI")
 NEO4J_USERNAME = creds.get("NEO4J_USERNAME")
 NEO4J_PASSWORD = creds.get("NEO4J_PASSWORD")
 
-# Connect to Neo4j Graph Database
-graph = Neo4jGraph(
-    url=NEO4J_URI,
-    username=NEO4J_USERNAME,
-    password=NEO4J_PASSWORD,
-)
-
 # Connect to Neo4j database
 driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
 
 # Initialize the Embedding Model
 embedder = VertexAIEmbeddings("text-embedding-004")
+
+# Delete all Nodes and Relationships
+with driver.session() as session:
+    result = session.run("MATCH (n) DETACH DELETE n")
 
 # Drop Existing Index
 drop_index_if_exists(driver, INDEX_NAME)
