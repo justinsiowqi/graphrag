@@ -1,6 +1,6 @@
 from langchain_community.graphs import Neo4jGraph
 
-# Insert Path to the credentials file
+# Insert Neo4j Credentials + Details Here
 credentials_file_path = "Neo4j_credentials_sample.txt"
 
 # Instantiate connection to Neo4j
